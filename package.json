@@ -1,0 +1,22 @@
+{
+  "name": "memotest",
+  "version": "1.0.0",
+  "description": "Juego memotest",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lucasmpe/memotest.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lucasmpe/memotest/issues"
+  },
+  "homepage": "https://github.com/lucasmpe/memotest#readme",
+  "dependencies": {
+    "bootstrap": "^5.1.3"
+  }
+}
