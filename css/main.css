@@ -1,0 +1,29 @@
+
+
+.tablero {
+	width: 90%;
+	max-width: 1200px;
+	margin: 20px auto;
+	padding: 10px 10px;
+	background-color: rgba(23, 24, 23, 0.87);
+	/* Grid */
+	display: grid;
+	grid-template-columns: repeat(8, 1fr);
+	gap: 5px;
+}
+
+.carta.dorso {
+	border-radius: 5px;
+	min-height: 100px;
+	/* font-weight: bold; */
+	padding: 15px;
+	position: relative;
+	overflow: hidden;
+	/* background-size: cover;
+	background-position: center center;
+    background-image: url('../img/dorso-carta.jpg'); */
+}
+
+.oculto {
+    display: none;
+}
