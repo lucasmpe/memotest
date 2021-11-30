@@ -1,27 +1,30 @@
-
+body {
+	background-image: url('../img/fondo.jpeg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
 
 .tablero {
 	width: 90%;
-	max-width: 1200px;
-	margin: 20px auto;
-	padding: 10px 10px;
-	background-color: rgba(23, 24, 23, 0.87);
-	/* Grid */
+	max-width: 800px;
+	margin: 40px auto;
 	display: grid;
-	grid-template-columns: repeat(8, 1fr);
-	gap: 5px;
+	grid-template-columns: repeat(5, 1fr);
+	grid-template-rows: repeat(4, 1fr);
+	grid-gap: 5px;
 }
 
-.carta.dorso {
-	border-radius: 5px;
-	min-height: 100px;
-	/* font-weight: bold; */
-	padding: 15px;
+.tablero .carta {
+	border-radius: 10px;
+	display: block;
 	position: relative;
-	overflow: hidden;
-	/* background-size: cover;
-	background-position: center center;
-    background-image: url('../img/dorso-carta.jpg'); */
+}
+
+.fin-de-juego {
+	display: block;
+	line-height: 200px;
+	text-align: center;
+	margin-top: 200px;
 }
 
 .oculto {
