@@ -1,6 +1,6 @@
-const imagenes = ['img/aguilas-doradas.jpg', 'img/alianza-petrolera.jpg', 'img/america-de-cali.jpg', 'img/atletico-bucaramanga.jpg',
-    'img/atletico-huila.jpg', 'img/atletico-junior.jpg', 'img/atletico-nacional.jpg', 'img/deportes-quindio.jpg',
-    'img/deportes-tolima.jpg', 'img/deportivo-cali.jpg'
+const imagenes = ['img/aguilas-doradas.jpg', 'img/alianza-petrolera.jpg', 'img/america-de-cali.jpg', 'img/atletico-bucaramanga.jpg', 
+    'img/atletico-junior.jpg', 'img/atletico-nacional.jpg', 'img/deportes-quindio.jpg',
+    'img/deportes-tolima.jpg', 'img/deportivo-cali.jpg', 'img/once-caldas.jpg'
 ];
 
 const CANTIDAD_IMAGENES = imagenes.length;
@@ -73,6 +73,7 @@ function reiniciar() {
     intentos = 0;
     aciertos = 0;
     const $finDeJuego = document.querySelector('.fin-de-juego');
+    $finDeJuego.firstChild.textContent = ''; //No funciona me parece. Chequear
     $finDeJuego.classList.add('oculto');
     $tablero.classList.remove('oculto');
     iniciarJuego();
