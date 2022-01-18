@@ -11,8 +11,14 @@ let $primeraCarta = null;
 let intentos = 0;
 let aciertos = 0;
 
+function mezclarArreglo(arreglo){
+    arreglo.sort(()=> Math.random() - 0.5);
+}
+
 function crearTablero() {
-    registroAsignaciones.fill(0);
+
+    let frentes = imagenes.concat(imagenes);
+    mezclarArreglo(frentes);
 
     for (let i = 0; i < CANTIDAD_IMAGENES * 2; i++) {
        
@@ -24,41 +30,15 @@ function crearTablero() {
         $dorso.classList = 'img-fluid dorso';
         $dorso.src = 'img/dorso-carta.jpg';
 
-        const $imagen = obtenerImagen();
+        const $frente = document.createElement('img');
+        $frente.classList = 'img-fluid oculto';
+        $frente.src = frentes[i];
 
         $carta.appendChild($dorso);
-        $carta.appendChild($imagen);
-        
+        $carta.appendChild($frente); 
         $tablero.appendChild($carta);
 
-        tablero[`carta-${i + 1}`] = $imagen.src;
-    }
-}
-
-function registroAsignacionesEstaLleno() {
-    let suma = 0;
-    for (let i = 0; i < registroAsignaciones.length; i++) {
-        suma += registroAsignaciones[i];
-    }
-    if (suma === CANTIDAD_IMAGENES * 2) {
-        return true;
-    }
-    return false;
-}
-
-function obtenerImagen() {
-    if (registroAsignacionesEstaLleno()) {
-        return null;
-    }
-    const indiceAleatorio = Math.floor(Math.random() * 20);
-    if (registroAsignaciones[indiceAleatorio] < 2) {
-        const $imagen = document.createElement('img');
-        $imagen.classList = 'img-fluid oculto';
-        $imagen.src = imagenes[indiceAleatorio];
-        registroAsignaciones[indiceAleatorio]++;
-        return $imagen;
-    } else {
-        return obtenerImagen();
+        tablero[`carta-${i + 1}`] = $frente.src;
     }
 }
 
