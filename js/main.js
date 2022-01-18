@@ -12,21 +12,26 @@ let intentos = 0;
 let aciertos = 0;
 
 function crearTablero() {
-    for (let i = 0; i < CANTIDAD_IMAGENES * 2; i++) {
-        let $carta = document.querySelector(`#carta-${i + 1}`);
-        if (!$carta) {
-            $carta = document.createElement('div');
-            $carta.classList = 'carta';
-            $carta.id = `carta-${i + 1}`;
-        } else {
-            $carta = document.querySelector(`#carta-${i + 1}`);
-        }
-        const $imagen = document.createElement('img');
-        $imagen.classList = 'img-fluid dorso';
-        $imagen.src = 'img/dorso-carta.jpg';
+    registroAsignaciones.fill(0);
 
+    for (let i = 0; i < CANTIDAD_IMAGENES * 2; i++) {
+       
+        const $carta = document.createElement('div');
+        $carta.classList = 'carta';
+        $carta.id = `carta-${i + 1}`;
+        
+        const $dorso = document.createElement('img');
+        $dorso.classList = 'img-fluid dorso';
+        $dorso.src = 'img/dorso-carta.jpg';
+
+        const $imagen = obtenerImagen();
+
+        $carta.appendChild($dorso);
         $carta.appendChild($imagen);
+        
         $tablero.appendChild($carta);
+
+        tablero[`carta-${i + 1}`] = $imagen.src;
     }
 }
 
@@ -54,16 +59,6 @@ function obtenerImagen() {
         return $imagen;
     } else {
         return obtenerImagen();
-    }
-}
-
-function iniciarTablero() {
-    registroAsignaciones.fill(0);
-    for (let i = 0; i < CANTIDAD_IMAGENES * 2; i++) {
-        const $carta = document.querySelector(`#carta-${i + 1}`);
-        const $imagen = obtenerImagen();
-        $carta.appendChild($imagen);
-        tablero[`carta-${i + 1}`] = $imagen.src;
     }
 }
 
@@ -162,7 +157,6 @@ function esFinDeJuego() {
 
 function iniciarJuego() {
     crearTablero();
-    iniciarTablero();
     habilitarInputUsuario();
 }
 
