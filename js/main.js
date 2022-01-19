@@ -48,7 +48,7 @@ function reiniciar() {
     intentos = 0;
     aciertos = 0;
     const $finDeJuego = document.querySelector('.fin-de-juego');
-    $finDeJuego.firstChild.textContent = ''; //No funciona me parece. Chequear
+    $finDeJuego.removeChild($finDeJuego.firstChild);
     $finDeJuego.classList.add('oculto');
     $tablero.classList.remove('oculto');
     iniciarJuego();
@@ -84,16 +84,16 @@ function habilitarInputUsuario() {
 }
 
 function manejarClickCarta($cartaActual) {
-    girarCarta($cartaActual);
+    
+    if ($primeraCarta === $cartaActual) { 
+        return;
+    } else {
+        girarCarta($cartaActual);
+    }
 
     if (!$primeraCarta) {
         $primeraCarta = $cartaActual;
     } else {
-
-        if ($primeraCarta === $cartaActual) { 
-            $primeraCarta = null;
-            return;
-        }
 
         intentos++;
         
@@ -102,7 +102,7 @@ function manejarClickCarta($cartaActual) {
                 eliminarCarta($primeraCarta);
                 eliminarCarta($cartaActual);
                 $primeraCarta = null;
-            }, 300);
+            }, 400);
         
             aciertos++;
 
@@ -116,7 +116,7 @@ function manejarClickCarta($cartaActual) {
                 girarCarta($cartaActual);
                 girarCarta($primeraCarta);
                 $primeraCarta = null;
-            }, 300);
+            }, 400);
         }
     }
 }
