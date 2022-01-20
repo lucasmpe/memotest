@@ -11,59 +11,34 @@ let $primeraCarta = null;
 let intentos = 0;
 let aciertos = 0;
 
+function mezclarArreglo(arreglo){
+    arreglo.sort(()=> Math.random() - 0.5);
+}
+
 function crearTablero() {
-    for (let i = 0; i < CANTIDAD_IMAGENES * 2; i++) {
-        let $carta = document.querySelector(`#carta-${i + 1}`);
-        if (!$carta) {
-            $carta = document.createElement('div');
-            $carta.classList = 'carta';
-            $carta.id = `carta-${i + 1}`;
-        } else {
-            $carta = document.querySelector(`#carta-${i + 1}`);
-        }
-        const $imagen = document.createElement('img');
-        $imagen.classList = 'img-fluid dorso';
-        $imagen.src = 'img/dorso-carta.jpg';
 
-        $carta.appendChild($imagen);
+    let frentes = imagenes.concat(imagenes);
+    mezclarArreglo(frentes);
+
+    for (let i = 0; i < CANTIDAD_IMAGENES * 2; i++) {
+       
+        const $carta = document.createElement('div');
+        $carta.classList = 'carta';
+        $carta.id = `carta-${i + 1}`;
+        
+        const $dorso = document.createElement('img');
+        $dorso.classList = 'img-fluid dorso';
+        $dorso.src = 'img/dorso-carta.jpg';
+
+        const $frente = document.createElement('img');
+        $frente.classList = 'img-fluid oculto';
+        $frente.src = frentes[i];
+
+        $carta.appendChild($dorso);
+        $carta.appendChild($frente); 
         $tablero.appendChild($carta);
-    }
-}
 
-function registroAsignacionesEstaLleno() {
-    let suma = 0;
-    for (let i = 0; i < registroAsignaciones.length; i++) {
-        suma += registroAsignaciones[i];
-    }
-    if (suma === CANTIDAD_IMAGENES * 2) {
-        return true;
-    }
-    return false;
-}
-
-function obtenerImagen() {
-    if (registroAsignacionesEstaLleno()) {
-        return null;
-    }
-    const indiceAleatorio = Math.floor(Math.random() * 20);
-    if (registroAsignaciones[indiceAleatorio] < 2) {
-        const $imagen = document.createElement('img');
-        $imagen.classList = 'img-fluid oculto';
-        $imagen.src = imagenes[indiceAleatorio];
-        registroAsignaciones[indiceAleatorio]++;
-        return $imagen;
-    } else {
-        return obtenerImagen();
-    }
-}
-
-function iniciarTablero() {
-    registroAsignaciones.fill(0);
-    for (let i = 0; i < CANTIDAD_IMAGENES * 2; i++) {
-        const $carta = document.querySelector(`#carta-${i + 1}`);
-        const $imagen = obtenerImagen();
-        $carta.appendChild($imagen);
-        tablero[`carta-${i + 1}`] = $imagen.src;
+        tablero[`carta-${i + 1}`] = $frente.src;
     }
 }
 
@@ -73,7 +48,7 @@ function reiniciar() {
     intentos = 0;
     aciertos = 0;
     const $finDeJuego = document.querySelector('.fin-de-juego');
-    $finDeJuego.firstChild.textContent = ''; //No funciona me parece. Chequear
+    $finDeJuego.removeChild($finDeJuego.firstChild);
     $finDeJuego.classList.add('oculto');
     $tablero.classList.remove('oculto');
     iniciarJuego();
@@ -109,16 +84,16 @@ function habilitarInputUsuario() {
 }
 
 function manejarClickCarta($cartaActual) {
-    girarCarta($cartaActual);
+    
+    if ($primeraCarta === $cartaActual) { 
+        return;
+    } else {
+        girarCarta($cartaActual);
+    }
 
     if (!$primeraCarta) {
         $primeraCarta = $cartaActual;
     } else {
-
-        if ($primeraCarta === $cartaActual) { 
-            $primeraCarta = null;
-            return;
-        }
 
         intentos++;
         
@@ -127,7 +102,7 @@ function manejarClickCarta($cartaActual) {
                 eliminarCarta($primeraCarta);
                 eliminarCarta($cartaActual);
                 $primeraCarta = null;
-            }, 300);
+            }, 400);
         
             aciertos++;
 
@@ -141,7 +116,7 @@ function manejarClickCarta($cartaActual) {
                 girarCarta($cartaActual);
                 girarCarta($primeraCarta);
                 $primeraCarta = null;
-            }, 300);
+            }, 400);
         }
     }
 }
@@ -162,7 +137,6 @@ function esFinDeJuego() {
 
 function iniciarJuego() {
     crearTablero();
-    iniciarTablero();
     habilitarInputUsuario();
 }
 
