@@ -83,6 +83,11 @@ function habilitarInputUsuario() {
     };
 }
 
+function bloquearInputUsuario() {
+    $tablero.onclick = function() {
+    };
+  }
+
 function manejarClickCarta($cartaActual) {
     
     if ($primeraCarta === $cartaActual) { 
@@ -94,6 +99,8 @@ function manejarClickCarta($cartaActual) {
     if (!$primeraCarta) {
         $primeraCarta = $cartaActual;
     } else {
+        
+        bloquearInputUsuario();
 
         intentos++;
         
@@ -102,6 +109,7 @@ function manejarClickCarta($cartaActual) {
                 eliminarCarta($primeraCarta);
                 eliminarCarta($cartaActual);
                 $primeraCarta = null;
+                habilitarInputUsuario();
             }, 400);
         
             aciertos++;
@@ -116,6 +124,7 @@ function manejarClickCarta($cartaActual) {
                 girarCarta($cartaActual);
                 girarCarta($primeraCarta);
                 $primeraCarta = null;
+                habilitarInputUsuario();
             }, 400);
         }
     }
