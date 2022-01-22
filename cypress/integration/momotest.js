@@ -11,6 +11,10 @@ context('Memotest', () => {
         cy.get('#tablero').find('.carta').should('have.length', NUMERO_CARTAS);
     });
 
+    it('se asegura que haya un tablero con imagenes', () => {
+        cy.get('#tablero').find('.frente').should('have.length', NUMERO_CARTAS);
+    });
+
     it('se asegura que las cartas sean aleatorias', () => {
         cy.get('.frente').then((imagenes) => {
             let imagenesOriginales = [];
@@ -41,8 +45,8 @@ context('Memotest', () => {
                 
                 console.log(listaDePares);
 
-                // listaDePares[0][0].previousSibling.click();
-                // listaDePares[1][0].previousSibling.click();
+                listaDePares[0][0].previousSibling.click();
+                listaDePares[1][0].previousSibling.click();
 
                 cy.get('.frente').should('have.length', NUMERO_CARTAS);
             });
@@ -53,12 +57,23 @@ context('Memotest', () => {
 
             listaDePares.forEach((par) => {
                 
+                cy.wait(500);
+
                 cy.get(par[0].previousSibling).click();
                 cy.get(par[1].previousSibling).click();
 
             });
 
             cy.get('.frente').should('have.length', 0);
+
+            cy.get('.tablero').should('not.be.visible');
+            const intentos = NUMERO_CARTAS / 2 + 1;
+            cy.get('.fin-de-juego').
+                should('be.visible').
+                contains(
+                    `Finalizaste el juego en ${intentos} intentos.`,
+            );
+
         });
 
     });
@@ -69,13 +84,13 @@ function obtenerParesDeImagenes(imagenes) {
 
     imagenes.each((i, imagen) => {
         
-        // const club = imagen.src.replace('http://' + URL + '/img/', '').replace('.jpg','');
+        const club = imagen.src.replace('http://' + URL + '/img/', '').replace('.jpg','');
 
-        if (pares[imagen.src]) {
-            pares[imagen.src].push(imagen);
+        if (pares[club]) {
+            pares[club].push(imagen);
         } else {
             //Si no existe el array de elementos 'img' entoces los creo, por eso el uso de '[]'
-            pares[imagen.src] = [imagen];
+            pares[club] = [imagen];
         }
     });
     console.log(pares);
