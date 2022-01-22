@@ -31,7 +31,7 @@ function crearTablero() {
         $dorso.src = 'img/dorso-carta.jpg';
 
         const $frente = document.createElement('img');
-        $frente.classList = 'img-fluid oculto';
+        $frente.classList = 'img-fluid frente oculto';
         $frente.src = frentes[i];
 
         $carta.appendChild($dorso);
