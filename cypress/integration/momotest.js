@@ -1,3 +1,5 @@
+/// <reference types="Cypress" />
+
 const URL = '127.0.0.1:8080';
 const NUMERO_CARTAS = 20;
 
@@ -55,13 +57,14 @@ context('Memotest', () => {
         it('resuelve el juego', () => {
             cy.get('.frente').should('have.length', NUMERO_CARTAS);
 
+            cy.clock();
+
             listaDePares.forEach((par) => {
-                
-                cy.wait(500);
 
                 cy.get(par[0].previousSibling).click();
                 cy.get(par[1].previousSibling).click();
 
+                cy.tick(500);
             });
 
             cy.get('.frente').should('have.length', 0);
